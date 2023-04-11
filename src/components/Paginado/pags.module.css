@@ -1,0 +1,45 @@
+:root {
+    --color: rgb(199, 33, 33);
+    --fullcolor: rgb(255, 0, 0);
+--colorHover:rgb(174, 28, 28);
+---buttonColor: #fff;
+--ligthGrey:rgb(164, 164, 164);
+--background: rgb(47, 47, 47);
+--ligthBack:rgb(67, 67, 67);
+--black:black;
+--background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.button{
+    height: 40px;
+    width: 40px;
+    border: none;
+    font-size: large;
+    border-radius: 10px;
+    background-color: var(--color);
+    color: var(---buttonColor);
+}
+
+.button:hover{
+    background-color: var(--ligthGrey);
+    color: var(--ligthBack);
+}
+
+.buttonSelected{
+    height: 25px;
+    width: 25px;
+    border: none;
+    font-size: medium;
+    border-radius: 5px;
+    background-color: var(--ligthGrey);
+    color: var(--ligthBack);
+}

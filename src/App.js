@@ -1,23 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import Landing from './components/Landing.js';
+import CardContainer from './components/CardContainer';
+import CreatePokemon from './components/Create';
+import PokemonDetails from './components/PokemonDetails';
+import Footer from './components/Footer';
+import NotFound from './components/NotFound';
+import {Route, Routes} from 'react-router-dom'
+import Nav from './components/Nav';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {getAllPokemons,getAllTypes} from "./redux/actions"
 
 function App() {
+
+  const [landing, setLanding] = useState(true)
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getAllPokemons())
+    dispatch(getAllTypes())
+  },[dispatch])
+
+  const pokemons = useSelector(state => state.pokemons)
+  
+  const [currentPage, setCurrentPage] = useState(1)
+  const pokemonsPerPage = 12
+  const indexLastPokemon = currentPage * pokemonsPerPage // 12 > 24
+  const indexFirstPokemon = indexLastPokemon - pokemonsPerPage // 12
+  const currentPokemons = pokemons.slice(indexFirstPokemon, indexLastPokemon)
+
+  const paginado  = (numPage)=>{
+    setCurrentPage(numPage)
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      {!landing ?<div>
+        <Nav setCurrentPage={setCurrentPage}/>
+        <Routes>
+          <Route exact path='/' element={<CardContainer currentPokemons={currentPokemons} pokemonsPerPage={pokemonsPerPage} paginado={paginado} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}/>
+          <Route exact path='/create' element={<CreatePokemon/>}/>
+          <Route exact path='/:id' element={<PokemonDetails/>}/>
+          <Route element={<NotFound/>}/>
+        </Routes>
+        <Footer/>
+      </div> : <Landing setLanding={setLanding} /> }
     </div>
   );
 }
