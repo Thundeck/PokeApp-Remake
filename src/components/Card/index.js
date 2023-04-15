@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function Card({name,img,types,to}) {
 
-  const [shiny, setShiny] = useState(true) 
+  const [shiny, setShiny] = useState(false) 
 
   return (
     <div  className={`${Types[types[0].name]} flex justify-end items-center flex-col rounded-2xl h-96 w-72 shadow-gray-700 shadow-md relative hover:scale-105 duration-75 overflow-hidden`}>
