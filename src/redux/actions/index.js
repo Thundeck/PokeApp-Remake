@@ -2,12 +2,9 @@ import * as actions from '../actionsTypes'
 import axios from 'axios'
 
 export const getAllPokemons = () => async dispatch => {
-    dispatch(setLoader(true))
 try{
         const {data} = await axios.get('http://localhost:3001/pokemons')
-
-         data && dispatch(setLoader(false))
-
+        console.log(data)
 
         dispatch({
             type: actions.GET_ALL_POKEMONS,
@@ -93,13 +90,15 @@ export const orderAttackDes = () => {
 export const getPokemon = (name) => async dispatch => {
     dispatch(setLoader(true))
     try{
-            const {data} = await axios.get(`http://localhost:3001/pokemons/query?name=${name}`)
+            const {data} = await axios.post(`http://localhost:3001/pokemons/search`,{name})
+
+            console.log(data)
             
             data && dispatch(setLoader(false))
             
             dispatch({
                 type: actions.GET_POKEMON,
-                payload: data
+                payload: [data]
             })
         }
     catch(error){
@@ -109,12 +108,11 @@ export const getPokemon = (name) => async dispatch => {
 
     export const getDetails = (id) => async dispatch => {
 
-        dispatch(setLoader(true))
+        console.log("esta lleagdno",id)
 
         try{
-                const {data} = await axios.get(`http://localhost:3001/pokemons/`+id)
+                const {data} = await axios.post(`http://localhost:3001/pokemons/details`,{id})
                 
-                data && dispatch(setLoader(false))
                 
                 dispatch({
                     type: actions.GET_POKEMON_DETAILS,
@@ -125,24 +123,11 @@ export const getPokemon = (name) => async dispatch => {
             console.log(error)}
     }
 
-    export const createPokemon = (form) => async () => {
-        if(!form.sprites){
-            form.sprites = "https://marriland.com/wp-content/plugins/marriland-core/images/pokemon/sprites/home/full/unown-question.png"
-        }
-        let newPokemon = {
-            sprites:form.sprites,
-            name:form.name,
-            health:form.health,
-            attack:form.attack,
-            defense:form.defense,
-            speed:form.speed,
-            height:form.height,
-            weight:form.height,
-            types:form.types
-        }
+    export const createPokemon = (form,setAlert) => async () => {
+
         try{
-                const api = await axios.post(`http://localhost:3001/pokemons`, newPokemon ).then(alert("Pokemon creado  con exito"))
-                return api
+                const {data} = await axios.post(`http://localhost:3001/pokemons`, form )
+                data && setAlert({msg:"Pokemon successfully created!",error:false})
             }
         catch(error){ 
             console.log(error)}
@@ -161,4 +146,4 @@ export const getPokemon = (name) => async dispatch => {
           payload: bool,
         };
       };
-      
+

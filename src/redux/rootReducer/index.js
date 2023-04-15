@@ -80,7 +80,7 @@ const rootReducer = (state = initialState, action) =>{
                 ...state,
                 loader:action.payload
             };
-    
+        
         default: return state
     }
 

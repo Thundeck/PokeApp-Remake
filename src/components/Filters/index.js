@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useDispatch, useSelector} from "react-redux";
-import {getAllPokemons,filterType,orderPokemonsAsc,orderPokemonsDes ,orderAttackDes,orderAttackAsc} from '../../redux/actions'
+import {filterType,orderPokemonsAsc,orderPokemonsDes ,orderAttackDes,orderAttackAsc, getAllPokemons} from '../../redux/actions'
 
 function Filters({setCurrentPage}) {
 
@@ -12,14 +12,12 @@ function Filters({setCurrentPage}) {
 
     const [filter, setFilter] = useState(true)
 
-    console.log(filter)
-
     const handleTypeFilter = (e) =>{
         dispatch(filterType(e.target.value, allPokemonsRedux))
         setCurrentPage(1)
         }
       
-    const handleClick = () =>{
+    const handleDefault = () =>{
     setCurrentPage(1)
     dispatch(getAllPokemons())
     }
@@ -41,12 +39,21 @@ function Filters({setCurrentPage}) {
         <div >
 
           <p className='text-white font-bold text-lg' >Types</p>
-          <select 
-          className='w-36 h-7 rounded-lg'
+          <select
+          style={{
+            "-moz-appearance": "none",
+             "text-indent": "0.01px",
+             "text-overflow": '',
+            "-webkit-appearance":"none",
+            "-ms-appearance":"none",
+            "-o-appearance":"none",
+             "appearance":"none",
+            }}
+          className='w-36 h-7 rounded-lg bg-red-500 text-white font-bold capitalize tracking-wide -ms'
           onChange={(e) => handleTypeFilter(e)}>
-            <option value='all'>all</option>
+            <option className='bg-red-500 text-white text-center font-semibold capitalize'  value='all'>all</option>
             {types?.map(e =>{
-              return <option  key={e.id} value={e.name}>{e.name}</option>
+              return <option className='bg-red-500 text-white text-center font-semibold capitalize'   key={e._id} value={e.name}>{e.name}</option>
             })}
           </select>
         </div>
@@ -54,26 +61,44 @@ function Filters({setCurrentPage}) {
         <div>
           <p className='text-white font-bold text-lg' >Alphabetical</p>
           <select 
-          className='w-36 h-7 rounded-lg'
+          style={{
+            "-moz-appearance": "none",
+             "text-indent": "0.01px",
+             "text-overflow": '',
+            "-webkit-appearance":"none",
+            "-ms-appearance":"none",
+            "-o-appearance":"none",
+             "appearance":"none",
+            }}
+          className='w-36 h-7 rounded-lg bg-red-500 text-white font-bold capitalize tracking-wide open:rounded-full'
           onChange={(e) => handleOrder(e)}>
-            <option>-</option>
-            <option value='az' >A-Z</option>
-            <option value='za'>Z-A</option>
+            <option className='bg-red-500 text-white text-center font-semibold capitalize' >-</option>
+            <option className='bg-red-500 text-white text-center font-semibold capitalize'  value='az' >A-Z</option>
+            <option className='bg-red-500 text-white text-center font-semibold capitalize'  value='za'>Z-A</option>
           </select>
         </div>
 
         <div >
           <p className='text-white font-bold text-lg' >by Attack</p>
           <select 
-          className='w-36 h-7 rounded-lg'
+          style={{
+            "-moz-appearance": "none",
+             "text-indent": "0.01px",
+             "text-overflow": '',
+            "-webkit-appearance":"none",
+            "-ms-appearance":"none",
+            "-o-appearance":"none",
+             "appearance":"none",
+            }}
+          className='w-36 h-7 rounded-lg bg-red-500 text-white font-bold capitalize tracking-wide open:rounded-full'
           onChange={(e) => handleAttack(e)}>
-            <option>-</option>
-            <option  value='az' >Attk asc</option>
-            <option  value='za'  >Attk des</option>
+            <option className='bg-red-500 text-white text-center font-semibold capitalize' >-</option>
+            <option className='bg-red-500 text-white text-center font-semibold capitalize'   value='az' >Attk asc</option>
+            <option className='bg-red-500 text-white text-center font-semibold capitalize'   value='za'  >Attk des</option>
           </select>
         </div>
 
-        {allPokemons !== allPokemonsRedux && <button className=' bg-red-500 h-11 rounded-md px-4 text-white font-bold' onClick={handleClick} >delete filters</button>}
+        {allPokemons !== allPokemonsRedux && <button className=' bg-red-500 h-11 rounded-md px-4 text-white font-bold' onClick={handleDefault} >delete filters</button>}
 
       </section>
       <button onClick={()=>setFilter(!filter)} className='text-white text-2xl'>{filter ? <i className="fa-solid fa-caret-down"></i> : <i className="fa-solid fa-caret-up"></i>}</button>

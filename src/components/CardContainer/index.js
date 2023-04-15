@@ -14,8 +14,8 @@ const CardContainer = ({currentPokemons, pokemonsPerPage,paginado, setCurrentPag
         {
           currentPokemons?.length ? currentPokemons?.map(e => (
             <Card
-            key={e.id} 
-            to={`/${e.id}`}
+            key={e._id} 
+            to={`/${e._id}`}
             name={e?.name}
             img={e?.sprites}
             types={e?.types} />)) : <p>no hay nada xd</p>

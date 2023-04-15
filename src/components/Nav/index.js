@@ -9,7 +9,7 @@ import { getPokemon } from '../../redux/actions';
 const Nav = ({setCurrentPage}) => {
 
   const [search, setSearch] = useState("")
-  const [close, setClose] = useState(false)
+  const [close, setClose] = useState(true)
 
   const dispatch = useDispatch()
 

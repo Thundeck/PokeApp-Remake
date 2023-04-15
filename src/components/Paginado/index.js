@@ -2,12 +2,6 @@ import React, {useState} from 'react'
 
 const Paginado = ({allPokes, pokemonsPerPage, paginado, setCurrentPage,currentPage}) => {
 
-  console.log("esto es allPokes",allPokes)
-  console.log("esto es pokemonsPerPage",pokemonsPerPage)
-  console.log("esto es paginado",paginado)
-  console.log("esto es setCurrentPage",setCurrentPage)
-  console.log("esto es currentPage",currentPage)
-
     const pageNumbers = []
 
     for(let i=1 ; i <= Math.ceil(allPokes/pokemonsPerPage); i++){
