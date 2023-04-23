@@ -49,14 +49,18 @@ const handlePage = (e) => {
   }
 }
 
+const viewPages =[pageNumbers[currentPage-3],pageNumbers[currentPage-2],pageNumbers[currentPage-1],pageNumbers[currentPage],pageNumbers[currentPage+1]].filter(e => e !== undefined)
+
   return (
     <nav className='w-full flex justify-center items-center flex-row gap-2' >
       <button className='text-red-500 bg-white text-xl shadow-md active:shadow-inner active:shadow-zinc-600 shadow-zinc-600 rounded px-2' value={currentPage - 1} onClick={(e) => handlePage(e)}>Prev</button>
-        {pageNumbers && pageNumbers.map(e => {
+      {currentPage !== 1 && <p>...</p>}
+        {pageNumbers && viewPages.map(e => {
             return (
                 <button className={`${select[e] ? "bg-red-500 text-white shadow-md shadow-gray-700" : "bg-transparent"} w-7 h-7 rounded-md font-semibold`} name={e} key={e} type='text' onClick={() => handleClick(e)}>{e}</button>
             )
           })}
+      {currentPage !== pageNumbers.length && <p>...</p>}
       <button className='text-red-500 bg-white text-xl shadow-md active:shadow-inner active:shadow-zinc-600 shadow-zinc-600 rounded px-2' value={currentPage + 1} onClick={(e) => handlePage(e)}>Next</button>
     </nav>
   )

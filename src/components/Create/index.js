@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {createPokemon,getAllTypes} from '../../redux/actions'
 import Types from '../types.module.css'
 import img from '../../img/defaultImg.png'
+import Alert from '../Alert'
 
 const defaultForm = {
   sprites:[],
@@ -38,7 +39,7 @@ function Create() {
     weight:'0',
   })
   const [typeClose, setTypeClose] = useState(false)
-  const [alert, setAlert] = useState({msg:"",error:true})
+  const [alert, setAlert] = useState({msg:"",error:false})
 
   const handleChange = (e) =>{
 
@@ -101,7 +102,7 @@ function Create() {
 
     const handleImage = (e) => {
       const file = e.target.files[0];
-      if (!(["jpeg","jpg","png"].includes(file.type.split("/")[1]))){
+      if (!(["jpeg","jpg","png"].includes(file?.type?.split("/")[1]))){
 
         setAlert({error:true,msg:"only images in jpeg, jpg or png format are allowed."})
         setTimeout(() => setAlert({error:false,msg:""}),"5000")
@@ -132,16 +133,19 @@ function Create() {
 
     if (Object.values(form).includes('')) {
       setAlert({ msg: "All fields are required", error: true });
+      setTimeout(() => setAlert({error:false, msg:""}),"5000")
       return
     }
 
     if (form.types.length === 0) {
       setAlert({ msg: "at least one type is required", error: true });
+      setTimeout(() => setAlert({error:false, msg:""}),"5000")
       return
     }
 
     if (form.sprites.length === 0) {
       setAlert({ msg: "at least one image is required", error: true });
+      setTimeout(() => setAlert({error:false, msg:""}),"5000")
       return
     }
 
@@ -156,19 +160,12 @@ function Create() {
     setForm(defaultForm)
   }
 
-  const Alert = ({msg}) => (
-    <div className='flex justify-center items-start flex-col absolute top-3 w-96 h-fit bg-white shadow-md shadow-gray-800 z-50 rounded-xl overflow-hidden'>
-      <h2 className={`pl-4 tracking-widest text-white bg-red-600 w-full font-bold text-xl  `}>Alert!</h2>
-      <p className='pl-4 text-center text-gray-500 font-semibold' >{msg}</p>
-    </div>
-  )
-
   return (
-    <div className='flex justify-center items-start flex-row w-full h-full py-12 gap-12 relative'>
+    <div className='flex justify-center items-center lg:items-start flex-col lg:flex-row w-full h-full py-12 gap-12 relative'>
         {alert.error && <Alert msg={alert.msg}/>}
 
-        <form onSubmit={(e) => hanldeSubmit(e)} className='flex justify-center items-center flex-col p-6 rounded-lg bg-gray-100 gap-4 shadow-lg shadow-gray-800'>
-            <div className={"flex justify-center items-start flex-row gap-10"}>
+        <form onSubmit={(e) => hanldeSubmit(e)} className='flex justify-center items-center flex-col p-6 rounded-lg bg-gray-100 gap-4 shadow-lg shadow-gray-800 w-80 lg:w-fit'>
+            <div className={"flex justify-center items-start flex-col lg:flex-row gap-10"}>
 
               <div className='flex justify-center items-center flex-col gap-4'>
                 <label className='text-red-600 font-semibold capitalize text-lg border-b-2 border-red-600 mb-1'>Pokemon Characteristics</label>
@@ -182,13 +179,14 @@ function Create() {
                       />
                   </div>
                   <div className='relative flex justify-center items-center flex-col w-40' >
-                      <label className='text-lg text-red-600 font-semibold' onClick={()=>setTypeClose(!typeClose)}>Types  {typeClose?<i className="fa-solid fa-caret-right hover:cursor-pointer text-2xl text-red-500"></i>:<i className="fa-solid fa-caret-down hover:cursor-pointer text-2xl text-red-500"></i>}</label>
+                      <label className='text-lg hover:cursor-pointer text-red-600 font-semibold' onClick={()=>setTypeClose(!typeClose)}>Types  {typeClose?<i className="fa-solid fa-caret-right text-2xl text-red-500"></i>:<i className="fa-solid fa-caret-down hover:cursor-pointer text-2xl text-red-500"></i>}</label>
                       <div className=' flex justify-center items-center flex-row h-12 w-36 rounded-md bg-slate-200 shadow-inner shadow-gray-800'>
                           { form?.types?.map((e,i) =>{
                               return <button name={e} key={i} onClick={handleDelete} type='button' className='shadow-md bg-white shadow-gray-800 px-1 rounded text-red-500 font-bold hover:shadow-md hover:shadow-red-600 hover:scale-105 active:shadow-inner active:shadow-gray-800' >{e}</button>
                             })}
                       </div>
-                      <div className={` ${!typeClose ? "hidden" : ""} absolute top-0 -right-64 bg-white rounded-md shadow-md shadow-gray-800 z-50 py-6 flex justify-center items-center flex-row flex-wrap w-64 gap-1`}>
+                      <div className={` ${!typeClose ? "hidden" : ""} absolute top-24 lg:top-0 -right-13  lg:-right-64 bg-white rounded-md shadow-md shadow-gray-800 z-50 py-6 flex justify-center items-center flex-row flex-wrap w-64 gap-1`}>
+                        <p className='w-full text-center font-bold text-red-600 text-lg'>Choose one or two types</p>
                           {types?.map(e => (
                             <button name={e?.name} key={e._id} onClick={handleButton} type='button' className='shadow-md  shadow-gray-800 px-1 rounded bg-red-500 text-white font-bold hover:shadow-md hover:shadow-red-600 hover:scale-105 active:shadow-inner active:shadow-gray-800' >{e.name}</button>
                             ))}
@@ -208,7 +206,7 @@ function Create() {
                             </div>}
                             <p className="font-semibold mb-2 text-sm text-red-600 ">Click to upload</p>
                             <p className="mb-2 text-sm text-red-600 ">or drag and drop</p>
-                            <p className="text-xs text-red-600 ">PNG or JPG </p>
+                            <p className="text-xs text-red-600 ">PNG, JPEG or JPG </p>
                         </div>
                         <input id="dropzone-file" type="file" onChange={handleImage} className="hidden" />
                     </label>
@@ -315,60 +313,60 @@ function Create() {
             </div>
           </div>
 
-          <div className='flex justify-center items-center flex-row gap-3 bg-zinc-700 p-4 rounded-xl shadow-lg shadow-gray-800'>
+          <div className='flex justify-center items-center flex-col lg:flex-row gap-3 bg-zinc-700 p-4 rounded-xl shadow-lg shadow-gray-800'>
             <section className='flex justify-center items-center flex-col gap-1' >
                   
-                  <div className=" h-6 w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
+                  <div className=" h-6 w-72 lg:w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
                     <p  className='text-white tracking-widest font-bold z-50 absolute'  >Health</p>
                   <p style={{
                     width:`${skills.health}%`,
                     transition:"width 0.5s"
                   }} className='top-0 left-0 bg-red-500 z-40 absolute h-6 ' ></p>
-                  <p  className='top-0 left-0 absolute bg-gray-400 w-52 h-6' ></p>
+                  <p  className='top-0 left-0 absolute bg-gray-400 w-72 lg:w-52 h-6' ></p>
                   </div>
-                  <div className=" h-6 w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
+                  <div className=" h-6 w-72 lg:w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
                     <p  className='text-white tracking-widest font-bold z-50 absolute'  >Attack</p>
                   <p style={{
                     width:`${skills.attack}%`,
                     transition:"width 0.5s"
                   }} className='top-0 left-0 bg-orange-400 z-40 absolute h-6 ' ></p>
-                  <p  className='top-0 left-0 absolute bg-gray-400 w-52 h-6' ></p>
+                  <p  className='top-0 left-0 absolute bg-gray-400 w-72 lg:w-52 h-6' ></p>
                   </div>
-                  <div className=" h-6 w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
+                  <div className=" h-6 w-72 lg:w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
                     <p  className='text-white tracking-widest font-bold z-50 absolute'  >Defense</p>
                   <p style={{
                     width:`${skills.defense}%`,
                     transition:"width 0.5s"
                   }} className='top-0 left-0 bg-yellow-400 z-40 absolute h-6 ' ></p>
-                  <p  className='top-0 left-0 absolute bg-gray-400 w-52 h-6' ></p>
+                  <p  className='top-0 left-0 absolute bg-gray-400 w-72 lg:w-52 h-6' ></p>
                   </div>
                 
               </section>
               <section className='flex justify-center items-center flex-col gap-1' >
                   
-                  <div className=" h-6 w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
+                  <div className=" h-6 w-72 lg:w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
                     <p  className='text-white tracking-widest font-bold z-50 absolute'  >Speed</p>
                   <p style={{
                     width:`${skills.speed}%`,
                     transition:"width 0.5s"
                   }} className='top-0 left-0 bg-pink-400 z-40 absolute h-6 ' ></p>
-                  <p  className='top-0 left-0 absolute bg-gray-400 w-52 h-6' ></p>
+                  <p  className='top-0 left-0 absolute bg-gray-400 w-72 lg:w-52 h-6' ></p>
                   </div>
-                  <div className=" h-6 w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
+                  <div className=" h-6 w-72 lg:w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
                     <p  className='text-white tracking-widest font-bold z-50 absolute'  >Height</p>
                   <p style={{
                     width:`${skills.height}%`,
                     transition:"width 0.5s"
                   }} className='top-0 left-0 bg-blue-400 z-40 absolute h-6 ' ></p>
-                  <p  className='top-0 left-0 absolute bg-gray-400 w-52 h-6' ></p>
+                  <p  className='top-0 left-0 absolute bg-gray-400 w-72 lg:w-52 h-6' ></p>
                   </div>
-                  <div className=" h-6 w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
+                  <div className=" h-6 w-72 lg:w-52 overflow-hidden rounded-sm relative flex justify-center items-center" >
                     <p  className='text-white tracking-widest font-bold z-50 absolute'  >Weight</p>
                   <p style={{
                     width:`${skills.weight}%`,
                     transition:"width 0.5s"
                   }} className='top-0 left-0 bg-green-400 z-40 absolute h-6 ' ></p>
-                  <p  className='top-0 left-0 absolute bg-gray-400 w-52 h-6' ></p>
+                  <p  className='top-0 left-0 absolute bg-gray-400 w-72 lg:w-52 h-6' ></p>
                   </div>
                 
               </section>

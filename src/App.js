@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div >
-      {<div>
+      <div>
         <Nav setCurrentPage={setCurrentPage}/>
         <Routes>
           <Route exact path='/' element={<CardContainer currentPokemons={currentPokemons} pokemonsPerPage={pokemonsPerPage} paginado={paginado} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}/>
@@ -44,7 +44,7 @@ function App() {
           <Route element={<NotFound/>}/>
         </Routes>
         <Footer/>
-      </div>}
+      </div>
     </div>
   );
 }

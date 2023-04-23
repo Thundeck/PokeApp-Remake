@@ -35,25 +35,25 @@ function Filters({setCurrentPage}) {
     
   return (
     <div className='flex justify-end items-center flex-col'>
-      <section className={`${filter ? "hidden" : "flex"} justify-center items-end flex-row gap-16`} >
+      <section className={`${filter ? "hidden" : "flex"} justify-center items-end flex-col lg:flex-row gap-2 lg:gap-16`} >
         <div >
 
           <p className='text-white font-bold text-lg' >Types</p>
           <select
           style={{
-            "-moz-appearance": "none",
-             "text-indent": "0.01px",
-             "text-overflow": '',
-            "-webkit-appearance":"none",
-            "-ms-appearance":"none",
-            "-o-appearance":"none",
+            "MozAppearance": "none",
+             "textIndent": "0.01px",
+             "textOverflow": '',
+            "WebkitAppearance":"none",
+            "msAppearance":"none",
+            "OAppearance":"none",
              "appearance":"none",
             }}
           className='w-36 h-7 rounded-lg bg-red-500 text-white font-bold capitalize tracking-wide -ms'
           onChange={(e) => handleTypeFilter(e)}>
-            <option className='bg-red-500 text-white text-center font-semibold capitalize'  value='all'>all</option>
+            <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize'  value='all'>all</option>
             {types?.map(e =>{
-              return <option className='bg-red-500 text-white text-center font-semibold capitalize'   key={e._id} value={e.name}>{e.name}</option>
+              return <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize'   key={e._id} value={e.name}>{e.name}</option>
             })}
           </select>
         </div>
@@ -62,19 +62,19 @@ function Filters({setCurrentPage}) {
           <p className='text-white font-bold text-lg' >Alphabetical</p>
           <select 
           style={{
-            "-moz-appearance": "none",
-             "text-indent": "0.01px",
-             "text-overflow": '',
-            "-webkit-appearance":"none",
-            "-ms-appearance":"none",
-            "-o-appearance":"none",
+            "MozAppearance": "none",
+             "textIndent": "0.01px",
+             "textOverflow": '',
+            "WebkitAppearance":"none",
+            "msAppearance":"none",
+            "OAppearance":"none",
              "appearance":"none",
             }}
           className='w-36 h-7 rounded-lg bg-red-500 text-white font-bold capitalize tracking-wide open:rounded-full'
           onChange={(e) => handleOrder(e)}>
-            <option className='bg-red-500 text-white text-center font-semibold capitalize' >-</option>
-            <option className='bg-red-500 text-white text-center font-semibold capitalize'  value='az' >A-Z</option>
-            <option className='bg-red-500 text-white text-center font-semibold capitalize'  value='za'>Z-A</option>
+            <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize' >-</option>
+            <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize'  value='az' >A-Z</option>
+            <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize'  value='za'>Z-A</option>
           </select>
         </div>
 
@@ -82,19 +82,19 @@ function Filters({setCurrentPage}) {
           <p className='text-white font-bold text-lg' >by Attack</p>
           <select 
           style={{
-            "-moz-appearance": "none",
-             "text-indent": "0.01px",
-             "text-overflow": '',
-            "-webkit-appearance":"none",
-            "-ms-appearance":"none",
-            "-o-appearance":"none",
+            "MozAppearance": "none",
+             "textIndent": "0.01px",
+             "textOverflow": '',
+            "WebkitAppearance":"none",
+            "msAppearance":"none",
+            "OAppearance":"none",
              "appearance":"none",
             }}
           className='w-36 h-7 rounded-lg bg-red-500 text-white font-bold capitalize tracking-wide open:rounded-full'
           onChange={(e) => handleAttack(e)}>
-            <option className='bg-red-500 text-white text-center font-semibold capitalize' >-</option>
-            <option className='bg-red-500 text-white text-center font-semibold capitalize'   value='az' >Attk asc</option>
-            <option className='bg-red-500 text-white text-center font-semibold capitalize'   value='za'  >Attk des</option>
+            <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize' >-</option>
+            <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize'   value='az' >Attk asc</option>
+            <option className='bg-red-500 text-white text-center font-semibold text-sm lg:text-base  capitalize'   value='za'  >Attk des</option>
           </select>
         </div>
 

@@ -4,7 +4,6 @@ import axios from 'axios'
 export const getAllPokemons = () => async dispatch => {
 try{
         const {data} = await axios.get('http://localhost:3001/pokemons')
-        console.log(data)
 
         dispatch({
             type: actions.GET_ALL_POKEMONS,
@@ -87,28 +86,25 @@ export const orderAttackDes = () => {
 
 }
 
-export const getPokemon = (name) => async dispatch => {
+export const getPokemon = (name,setAlert) => async dispatch => {
     dispatch(setLoader(true))
-    try{
-            const {data} = await axios.post(`http://localhost:3001/pokemons/search`,{name})
+try{
+    const {data} = await axios.post(`http://localhost:3001/pokemons/search`,{name})
+    
+    !data && setAlert({error:true, msg:"pokemon not find"})
 
-            console.log(data)
-            
-            data && dispatch(setLoader(false))
-            
-            dispatch({
-                type: actions.GET_POKEMON,
-                payload: [data]
-            })
-        }
+    data && dispatch(setLoader(false))
+    
+    data && dispatch({
+        type: actions.GET_POKEMON,
+        payload: [data]
+    })
+    }
     catch(error){
-     alert('Pokemon not found');
-    console.log(error);}
+     console.log(error);}
     }
 
     export const getDetails = (id) => async dispatch => {
-
-        console.log("esta lleagdno",id)
 
         try{
                 const {data} = await axios.post(`http://localhost:3001/pokemons/details`,{id})
@@ -126,7 +122,7 @@ export const getPokemon = (name) => async dispatch => {
     export const createPokemon = (form,setAlert) => async () => {
 
         try{
-                const {data} = await axios.post(`http://localhost:3001/pokemons`, form )
+                const {data} = await axios.post(`http://localhost:3001/pokemons`, {...form, name:form.name.toLowerCase()} )
                 data && setAlert({msg:"Pokemon successfully created!",error:false})
             }
         catch(error){ 
