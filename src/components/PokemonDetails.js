@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {getDetails,deleteDetail} from '../redux/actions'
 import Types from './types.module.css'
 import { useParams } from 'react-router-dom'
+import Spinner from './spinner'
 
 function PokemonDetails() {
   const idPoke = useParams().id
@@ -22,7 +23,9 @@ function PokemonDetails() {
   },[dispatch])
 
   return (
-    <div className='flex justify-center items-center py-10 flex-col lg:flex-row gap-10 lg:gap-24'>
+    <div>
+
+    {sprites ? <div className='flex justify-center items-center py-10 flex-col lg:flex-row gap-10 lg:gap-24'>
       
       <div className='flex justify-center items-center flex-col gap-5 w-80 h-full' >
           <div className={`${types && Types[types[0].name]} flex justify-center items-center flex-row w-80 rounded-2xl shadow-gray-700 shadow-md relative`}>
@@ -97,12 +100,13 @@ function PokemonDetails() {
               <p className="text-white text-lg font-extrabold tracking-widest " >Types</p>
               <div className=' flex justify-center items-center flex-row gap-4' >
               { types?.map((e,index) => {return(
-              <div key={index} className={`${Types.pkmtype} ${Types[e.name]}`} >
+                <div key={index} className={`${Types.pkmtype} ${Types[e.name]}`} >
                 <span>{e.name}</span>
                 </div>)})}
               </div>
             </div>
       </div>
+    </div> : <div className='flex relative mt-4 gap-5 h-full justify-center items-center flex-row flex-wrap'><Spinner/></div>}
     </div>
   )
 }

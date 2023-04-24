@@ -10,19 +10,21 @@ const CardContainer = ({currentPokemons, pokemonsPerPage,paginado, setCurrentPag
   const loader = useSelector(state => state.loader)
 
   return (
+    <div>
     <div className='mt-4 p-4 h-full w-full'>
       <Paginado allPokes={pokemons.length} pokemonsPerPage={pokemonsPerPage} paginado={paginado} setCurrentPage={setCurrentPage} currentPage={currentPage} />
-      <div className='flex mt-4 gap-5 h-full justify-center items-center flex-row flex-wrap'>
+      { <div className='flex mt-4 gap-5 h-full justify-center items-center flex-row flex-wrap'>
         {
-          !loader ? currentPokemons?.map(e => (
+          currentPokemons?.length ? currentPokemons?.map(e => (
             <Card
             key={e._id} 
             to={`/${e._id}`}
             name={e?.name}
             img={e?.sprites}
-            types={e?.types} />)) : <div><Spinner/></div>
-        }
-      </div> 
+            types={e?.types} />)) : <div className='flex relative mt-4 gap-5 h-full justify-center items-center flex-row flex-wrap'><Spinner/></div>
+          }
+      </div>}
+    </div>
     </div>
   )
 }

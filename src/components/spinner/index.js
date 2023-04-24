@@ -3,7 +3,7 @@ import './pokemon.css'
 
 const Spinner = () => {
   return (
-    <div className='pokemon'></div>
+    <span class="loader"></span>
   )
 }
 

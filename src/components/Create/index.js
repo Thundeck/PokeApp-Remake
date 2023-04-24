@@ -156,7 +156,9 @@ function Create() {
     return
     }
 
-     dispatch(createPokemon(form))
+     const data = dispatch(createPokemon(form))
+     data && setAlert({msg:"Pokemon successfully created",error:true})
+     setTimeout(() => setAlert({error:false, msg:""}),"5000")
     setForm(defaultForm)
   }
 

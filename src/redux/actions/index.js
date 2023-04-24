@@ -126,7 +126,7 @@ try{
 
         try{
                 const {data} = await axios.post(`https://pokeapp-backend-production.up.railway.app/pokemons`, {...form, name:form.name.toLowerCase()} )
-                data && setAlert({msg:"Pokemon successfully created!",error:false})
+                return data
             }
         catch(error){ 
             console.log(error)}
