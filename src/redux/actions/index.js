@@ -2,8 +2,11 @@ import * as actions from '../actionsTypes'
 import axios from 'axios'
 
 export const getAllPokemons = () => async dispatch => {
+    dispatch(setLoader(true))
 try{
         const {data} = await axios.get('https://pokeapp-backend-production.up.railway.app/pokemons')
+
+        data && dispatch(setLoader(false))
 
         dispatch({
             type: actions.GET_ALL_POKEMONS,
