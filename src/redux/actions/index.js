@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const getAllPokemons = () => async dispatch => {
 try{
-        const {data} = await axios.get('http://localhost:3001/pokemons')
+        const {data} = await axios.get('https://pokeapp-backend-production.up.railway.app/pokemons')
 
         dispatch({
             type: actions.GET_ALL_POKEMONS,
@@ -16,7 +16,7 @@ catch(error){ console.log(error)}
 
 export const getAllTypes = () => async dispatch => {
     try{
-            const {data} = await axios.get('http://localhost:3001/types')
+            const {data} = await axios.get('https://pokeapp-backend-production.up.railway.app/types')
 
             dispatch({
                 type: actions.GET_ALL_TYPES,
@@ -89,7 +89,7 @@ export const orderAttackDes = () => {
 export const getPokemon = (name,setAlert) => async dispatch => {
     dispatch(setLoader(true))
 try{
-    const {data} = await axios.post(`http://localhost:3001/pokemons/search`,{name})
+    const {data} = await axios.post(`https://pokeapp-backend-production.up.railway.app/pokemons/search`,{name})
     
     !data && setAlert({error:true, msg:"pokemon not find"})
 
@@ -107,7 +107,7 @@ try{
     export const getDetails = (id) => async dispatch => {
 
         try{
-                const {data} = await axios.post(`http://localhost:3001/pokemons/details`,{id})
+                const {data} = await axios.post(`https://pokeapp-backend-production.up.railway.app/pokemons/details`,{id})
                 
                 
                 dispatch({
@@ -122,7 +122,7 @@ try{
     export const createPokemon = (form,setAlert) => async () => {
 
         try{
-                const {data} = await axios.post(`http://localhost:3001/pokemons`, {...form, name:form.name.toLowerCase()} )
+                const {data} = await axios.post(`https://pokeapp-backend-production.up.railway.app/pokemons`, {...form, name:form.name.toLowerCase()} )
                 data && setAlert({msg:"Pokemon successfully created!",error:false})
             }
         catch(error){ 
