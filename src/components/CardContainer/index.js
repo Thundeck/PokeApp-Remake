@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Card from '../Card'
 import Paginado from "../Paginado"
-import Spinner from '../Spinner'
+import Spinner from '../spinner'
 
 const CardContainer = ({currentPokemons, pokemonsPerPage,paginado, setCurrentPage,currentPage}) => {
 
