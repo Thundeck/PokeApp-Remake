@@ -4,7 +4,7 @@ import axios from 'axios'
 export const getAllPokemons = () => async dispatch => {
     dispatch(setLoader(true))
 try{
-        const {data} = await axios.get('https://pokeapp-backend-production.up.railway.app/pokemons')
+        const {data} = await axios.get('https://pokeapp-remake.onrender.com/pokemons')
 
         data && dispatch(setLoader(false))
 
@@ -19,7 +19,7 @@ catch(error){ console.log(error)}
 
 export const getAllTypes = () => async dispatch => {
     try{
-            const {data} = await axios.get('https://pokeapp-backend-production.up.railway.app/types')
+            const {data} = await axios.get('https://pokeapp-remake.onrender.com/types')
 
             dispatch({
                 type: actions.GET_ALL_TYPES,
@@ -92,7 +92,7 @@ export const orderAttackDes = () => {
 export const getPokemon = (name,setAlert) => async dispatch => {
     dispatch(setLoader(true))
 try{
-    const {data} = await axios.post(`https://pokeapp-backend-production.up.railway.app/pokemons/search`,{name})
+    const {data} = await axios.post(`https://pokeapp-remake.onrender.com/pokemons/search`,{name})
     
     !data && setAlert({error:true, msg:"pokemon not find"})
 
@@ -110,7 +110,7 @@ try{
     export const getDetails = (id) => async dispatch => {
 
         try{
-                const {data} = await axios.post(`https://pokeapp-backend-production.up.railway.app/pokemons/details`,{id})
+                const {data} = await axios.post(`https://pokeapp-remake.onrender.com/pokemons/details`,{id})
                 
                 
                 dispatch({
@@ -125,7 +125,7 @@ try{
     export const createPokemon = (form,setAlert) => async () => {
 
         try{
-                const {data} = await axios.post(`https://pokeapp-backend-production.up.railway.app/pokemons`, {...form, name:form.name.toLowerCase()} )
+                const {data} = await axios.post(`https://pokeapp-remake.onrender.com/pokemons`, {...form, name:form.name.toLowerCase()} )
                 return data
             }
         catch(error){ 
